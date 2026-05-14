@@ -9,15 +9,19 @@ def decode_mhtml_to_html(mhtml_path):
 
     for part in msg.walk():
         if part.get_content_type() == "text/html":
-
+            
+            # extracts the raw binary, stripping away the email transport layer
             payload = part.get_payload(decode=True)
+            # # utf-8 is safety net if get_content_charset returns null
             charset = part.get_content_charset() or 'utf-8'
+            # change byte objects into readable character
             return payload.decode(charset, errors='replace')
         
     return None
 
 def ingest_all_mhtml(input_dir, output_dir):
-    for mhtml_file in Path(input_dir).glob("*mhtml"):
+    # .glob() is a methos used to find files and folders
+    for mhtml_file in Path(input_dir).glob("*.mhtml"):
         html_str = decode_mhtml_to_html(mhtml_file)
 
         output_path = Path(output_dir) / f"{mhtml_file.stem}.html"
