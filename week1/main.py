@@ -2,8 +2,8 @@ import sys
 
 from pathlib import Path # Figure out why use Path?
 from src.ingestor import ingest_all_mhtml
-# from src.processor import process_all_html
-# from src.loader import load_all_jsons
+from src.processor import process_all_html
+from src.loader import load_all_jsons
 # from src.run_data_profile import run_data_profile
 
 SOURCE_DIR = Path("data/test")
@@ -16,15 +16,15 @@ DB_NAME = "jobs.db"
 	# db_path = GOLD_DIR/DB_NAME
 	# run_data_profile(db_path)
 
-# def run_gold():
-	# input_dir = SILVER_DIR
-	# output_dir = GOLD_DIR
-	# load_all_jsons(input_dir, output_dir)
+def run_gold():
+	input_dir = SILVER_DIR
+	output_dir = GOLD_DIR
+	load_all_jsons(input_dir, output_dir)
 
-# def run_silver():
-	# input_dir = BRONZE_DIR
-	# output_dir = SILVER_DIR
-	# process_all_html(input_dir, output_dir)
+def run_silver():
+	input_dir = BRONZE_DIR
+	output_dir = SILVER_DIR
+	process_all_html(input_dir, output_dir)
 
 
 def run_bronze():
@@ -37,6 +37,8 @@ def run_bronze():
     
 def main():
 	run_bronze()
+	run_silver()
+	run_gold()
 
 if __name__ == "__main__":
 	main()
