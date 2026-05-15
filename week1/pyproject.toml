@@ -1,0 +1,16 @@
+[project]
+name = "week1"
+version = "0.1.0"
+description = "Python extraction and data validation project"
+authors = [{name = "Your Name"}]
+requires-python = ">=3.12"
+dependencies = [
+    "bs4>=0.0.2",
+    "pydantic>=2.13.4",
+    "ruff>=0.15.12",
+]
+
+[dependency-groups]
+dev = [
+    "ruff",
+]

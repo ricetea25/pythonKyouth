@@ -6,7 +6,7 @@ from pathlib import Path
 def load_all_jsons(input_dir, output_dir):
     #create the path if path doesnt exist
     os.makedirs(output_dir, exist_ok=True)
-    db_path = os.path.join(output_dir, "jobs_warehouse.db")
+    db_path = os.path.join(output_dir, "jobs.db")
 
     # Initialize Database & Schema
     with sqlite3.connect(db_path) as connection:
@@ -36,6 +36,7 @@ def load_all_jsons(input_dir, output_dir):
                 data = json.load(f)
 
             try:
+                #use parameterized queries to prevent SQL injection and handle special characters properly. The ? placeholders will be replaced by the values in the tuple, and sqlite3 will handle
                 cursor.execute(
                     """
                     INSERT OR IGNORE INTO jobs (source_id, job_title, company, description)
@@ -43,7 +44,7 @@ def load_all_jsons(input_dir, output_dir):
                     """,
                     (data["source_id"], data["job_title"], data["company"], data["description"]),
                 )
-                
+                # how is rowcount working with insert or ignore? it will return 1 if a new row was inserted, and 0 if the insert was ignored due to a duplicate primary key. This allows us to track how many records were actually added versus how many were skipped.
                 if cursor.rowcount > 0:
                     print(f"✅ Inserted: {json_path.name}")
                     inserted_count += 1

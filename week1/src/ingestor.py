@@ -21,10 +21,30 @@ def decode_mhtml_to_html(mhtml_path):
 
 def ingest_all_mhtml(input_dir, output_dir):
     # .glob() is a methos used to find files and folders
-    for mhtml_file in Path(input_dir).glob("*.mhtml"):
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+    mhtml_files = list(Path(input_dir).glob("*.mhtml"))
+    extracted_count = 0
+    failed_count = 0
+
+    print("🥉 Bronze:...")
+
+    for mhtml_file in mhtml_files:
         html_str = decode_mhtml_to_html(mhtml_file)
+
+        if not html_str:
+            print(f"⚠️ No HTML content found in: {mhtml_file.name}")
+            failed_count += 1
+            continue
 
         output_path = Path(output_dir) / f"{mhtml_file.stem}.html"
         output_path.write_text(html_str, encoding='utf-8')
+        print(f"✅ Extracted: {mhtml_file.name}")
+        extracted_count += 1
+
+    print(
+        "\n📊 Bronze Summary:\n"
+        f"Total: {len(mhtml_files)} | Extracted: {extracted_count} | Failed: {failed_count}"
+    )
 
 
