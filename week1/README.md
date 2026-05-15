@@ -8,38 +8,45 @@ This project is a local ETL pipeline for ingesting raw HTML/MHTML job posting fi
 
 ### Prerequisites
 
-- Python 3.12 or later
+- Python 3.14 (managed via `uv`)
 - A POSIX-compatible shell on Linux/macOS
-- `uv` package manager (recommended) or the ability to install Python packages with `pip`
+- `uv` package manager
 - A local Git repository with this `README.md` at the root
 
 ### Environment setup
 
-1. Create and activate a virtual environment:
+1. Install `uv` by following the official guide:
+
+- https://docs.astral.sh/uv/getting-started/installation/
+
+2. Install Python 3.14 with `uv`:
 
 ```bash
-python3 -m venv .venv
+uv python install 3.14
+```
+
+3. Initialize the project with `uv` if you are starting from scratch:
+
+```bash
+uv init
+```
+
+If `pyproject.toml` already exists, skip this step.
+
+4. Create and activate a virtual environment:
+
+```bash
+uv venv
 source .venv/bin/activate
 ```
 
-2. Upgrade `pip` and install `uv` if it is not already installed:
+5. Add dependencies:
 
 ```bash
-python -m pip install --upgrade pip
-python -m pip install uv
+uv add bs4 ruff pydantic
 ```
 
-3. Install the project dependencies from `pyproject.toml`:
-
-```bash
-uv install
-```
-
-If you do not want to use `uv`, you can install the required packages directly:
-
-```bash
-python -m pip install -e .
-```
+If dependencies are already present, `uv` will keep them unchanged.
 
 ### Environment variables
 
