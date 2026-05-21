@@ -6,7 +6,7 @@ from src.processor import process_all_html
 from src.loader import load_all_jsons
 from src.profiler import run_data_profile
 
-SOURCE_DIR = Path("data/test")
+SOURCE_DIR = Path("data/0_source")
 BRONZE_DIR = Path("data/1_bronze")
 SILVER_DIR = Path("data/2_silver")
 GOLD_DIR = Path("data/3_gold")

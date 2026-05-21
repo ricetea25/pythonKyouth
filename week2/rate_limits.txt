@@ -1,0 +1,6 @@
+# rate_limits.txt
+# Define API or process rate limits here.
+
+gemini-2.5-flash 10 250K 250
+gemini-2.5-flash-lite 15 250K 1000
+gemini-3-flash-preview 10 250K 100
